@@ -13,7 +13,7 @@ CPU_OPT =
 # attention to the model name and flags. compare against the listing for 
 # cpu type on the gcc info pages entry for cpu type 
 
-CPU_OPT = -march=nocona
+CPU_OPT = -march=native #nocona
 
 DFLAGS = -DGL_CHECK
 
@@ -21,7 +21,7 @@ CFLAGS = -Wformat=2 -Wall -Wswitch-default -Wswitch-enum \
          -Wunused-parameter -Wextra -Wshadow \
          -Wbad-function-cast -Wsign-compare -Wstrict-prototypes \
          -Wmissing-prototypes -Wmissing-declarations -Wunreachable-code \
-	 -ffast-math $(CPU_OPT) $(PROFILE) $(OPT)
+	 -ffast-math  $(PROFILE) $(OPT) #$(CPU_OPT)
 
 $(TARGET): $(OBJS)
 	cc  -o $(TARGET) $(LDFLAGS) $(OBJS)  $(PROFILE) $(OPT)

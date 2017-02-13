@@ -476,8 +476,8 @@ int get_device_capabilities(char * devicename, int device_fd,
 	      capabilities->capture.driver);
       describe_capture_capabilities("Device has the following capabilities",
 				    &capabilities->capture);
-      describe_device_controls("Device has the following controls available",
-			       devicename, device_fd);
+      //describe_device_controls("Device has the following controls available",
+	//		       devicename, device_fd);
 
       common_found = 0;
       collect_supported_image_formats(device_fd, capabilities);
@@ -492,7 +492,13 @@ int get_device_capabilities(char * devicename, int device_fd,
 	  fprintf(stderr, "device supports -e YUV422\n");
 	  common_found = 1;
 	}
-
+	
+	if (1 == capabilities->supports_uyvy)
+	{
+	  fprintf(stderr, "device supports -e UYVY\n");
+	  common_found = 1;
+	}
+	
       if (1 == capabilities->supports_greyscale)
 	{
 	  fprintf(stderr, "device supports -e LUMA\n");
@@ -1009,11 +1015,14 @@ __u32 encoding_format(Encodingmethod_t encoding)
    case YUV422:
      format = V4L2_PIX_FMT_YUYV;
       break;
-      
+    case UYVY:
+     format = V4L2_PIX_FMT_UYVY;
+      break;
+     
     case RGB:
       format = V4L2_PIX_FMT_RGB24;
       break;
-
+	
     default:
       fprintf(stderr, "Error: no format for encoding %d in %s\n",
 	      encoding, __FUNCTION__);
@@ -1344,6 +1353,10 @@ void print_supported_framesizes(int device_fd, __u32 pixel_format, char * label)
 	  {
 	    capabilities->supports_yuv422  = 1;
 	  }
+	else if (V4L2_PIX_FMT_UYVY == format.pixelformat)
+	  {
+	    capabilities->supports_uyvy  = 1;
+	  }
 	else if (V4L2_PIX_FMT_GREY == format.pixelformat)
 	  {
 	     capabilities->supports_greyscale   = 1;
@@ -1417,6 +1430,9 @@ char * get_encoding_string(Encodingmethod_t encoding)
       break;
    case YUV422:
       name = "YUV422";
+      break;
+    case UYVY:
+      name = "UYVY";
       break;
     case RGB:
       name = "RGB";

@@ -747,7 +747,9 @@ char * select_shader_file (Sourceparams_t * sourceparams)
     case YUV422:
       shaderfilename = "shader.frag";
       break;
-
+	case UYVY:
+      shaderfilename = "shader.frag";
+      break;
     case RGB:
       shaderfilename = "shader.frag";
       break;
@@ -1226,7 +1228,10 @@ int bytes_per_pixel(Encodingmethod_t encoding)
 	/* color, 2 bytes/pixel  */
       bpp =  2;
       break;
-      
+     case UYVY:
+	/* color, 2 bytes/pixel  */
+      bpp =  2;
+      break; 
     case  RGB:
       /* color, 3 bytes/pixel  */
       bpp = 3;
@@ -1310,7 +1315,10 @@ GLint texture_internal_format(Encodingmethod_t encoding)
 	/* color, 2 bytes/pixel  */
       format = GL_LUMINANCE_ALPHA;
       break;
-      
+     case UYVY:
+	/* color, 2 bytes/pixel  */
+      format = GL_LUMINANCE_ALPHA;
+      break; 
     case  RGB:
       /* color, 3 bytes/pixel  */
       format = GL_RGB;
@@ -1397,7 +1405,10 @@ GLenum texture_pixel_format(Encodingmethod_t encoding)
 	/* color, 2 bytes/pixel  */
       format = GL_LUMINANCE_ALPHA;
       break;
-      
+     case UYVY:
+	/* color, 2 bytes/pixel  */
+      format = GL_LUMINANCE_ALPHA;
+      break; 
     case  RGB:
       /* color, 3 bytes/pixel  */
       format = GL_RGB;
@@ -1760,7 +1771,14 @@ void describe_captured_pixels(char * label, Sourceparams_t * sourceparams,
 		  *(pixelp + 2),  *(pixelp + 3));
 	}
       break;
-      
+    case UYVY:
+       for (i = 0; i < n; i+=4)
+	{
+	  pixelp = source + i;
+	  fprintf(stderr, "[%x %x %x %x]\n", *pixelp, *(pixelp + 1),
+		  *(pixelp + 2),  *(pixelp + 3));
+	}
+      break;  
     case  RGB:
       fprintf(stderr, "RGB ");
       for (i = 0; i < n - 2; i+=3)

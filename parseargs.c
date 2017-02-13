@@ -166,6 +166,10 @@ int parse_command_line (int argc, char * argv[], Cmdargs_t *args)
 	  {
 	    args->encoding = YUV422;
 	  }
+	else if (0 == strcmp("UYVY", optarg))
+	  {
+	    args->encoding = UYVY;
+	  }
 #if 0
 	else if (0 == strcmp("RGB_BAYER", optarg))
 	  { 
@@ -182,7 +186,7 @@ int parse_command_line (int argc, char * argv[], Cmdargs_t *args)
 	    fprintf(stderr, "image encoding (-e) option '%s' not recognized\n",
 		    optarg);
 	    fprintf(stderr,
-		    "must be LUMA, YUV420, YUV422 or RGB\n");
+		    "must be LUMA, YUV420, YUV422 ,UYVY or RGB\n");
 	    unexpected = 1;
 	  }
 	break;

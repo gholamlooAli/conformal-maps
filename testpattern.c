@@ -300,6 +300,10 @@ int compute_bytes_per_frame(int image_width, int image_height,
       /* 4 bytes represents 2 pixels: YUYV  */
       bytes_per_frame = image_width * image_height * 2;
       break;
+     case UYVY:
+      /* 4 bytes represents 2 pixels: YUYV  */
+      bytes_per_frame = image_width * image_height * 2;
+      break;
 
 #if 0
     case RGB_BAYER:
@@ -398,7 +402,10 @@ void generate_test_pattern_frames(Testpattern_t *testpatternp)
       generate_yuv422_testpattern(testpatternp);
       /*  deinterlace_testpattern(testpatternp); */
       break;
-      
+    case UYVY:
+      generate_yuv422_testpattern(testpatternp);
+      /*  deinterlace_testpattern(testpatternp); */
+      break;  
     case RGB:
       generate_rgb_testpattern(testpatternp);
       break;
@@ -1701,6 +1708,10 @@ void deinterlace_testpattern(Testpattern_t *testpatternp)
       bytes_per_pixel = 1;
       break;
     case YUV422:
+      /* 4 bytes represents 2 pixels: YUYV  */
+       bytes_per_pixel = 2;
+       break;
+	case UYVY:
       /* 4 bytes represents 2 pixels: YUYV  */
        bytes_per_pixel = 2;
        break;

@@ -39,6 +39,7 @@ typedef struct capabilities_s {
   int supports_yuv422; /* V4L2_PIX_FMT_YUYV  */
   int supports_greyscale; /* V4L2_PIX_FMT_GREY  */
   int supports_rgb; /* V4L2_PIX_FMT_RGB24  */
+  int supports_uyvy;/* V4L2_PIX_FMT_UYVY */
 } Videocapabilities_t;
 
 

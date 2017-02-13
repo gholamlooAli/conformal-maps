@@ -48,7 +48,8 @@ typedef enum encodingmethod_e {
   LUMA, /* greyscale V4L2_PIX_FMT_GREY  */
   YUV420, /* V4L2_PIX_FMT_YUV420  */
   YUV422, /* V4L2_PIX_FMT_YUYV   */
-  /* RGB_BAYER, */
+  UYVY,	/* V4L2_PIX_FMT_UYVY   */
+	/* RGB_BAYER, */
   RGB /* V4L2_PIX_FMT_RGB24  */
 } Encodingmethod_t;
 
